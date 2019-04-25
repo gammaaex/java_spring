@@ -4,7 +4,8 @@ public class StudentIdValidator
 {
   public static void main(String[] args)
   {
-    run(args);
+    StudentIdValidator studentIdValidator = new StudentIdValidator();
+    studentIdValidator.run(args);
   }
   
   public static void run(String[] args)

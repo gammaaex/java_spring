@@ -4,13 +4,14 @@ public class MonteCarloPi
 {
   public static void main(String[] args)
   {
+    MonteCarloPi monteCarloPi = new MonteCarloPi();
     double pi = 0;
     if(args.length == 0){
-      pi  = Calc(1000);
+      pi  = monteCarloPi.Calc(1000);
       
     }
     else{
-      pi = Calc(Integer.valueOf(args[0]));
+      pi = monteCarloPi.Calc(Integer.valueOf(args[0]));
     }
     System.out.println(pi);
   }

@@ -4,12 +4,13 @@ public class TrapezoidalRulePi
 {
   public static void main(String[] args)
   {
+    TrapezoidalRulePi trapezoidalRulePi = new TrapezoidalRulePi();
     if (args.length == 0)
     {
-      run(0.001f);
+      trapezoidalRulePi.run(0.001f);
     } else
     {
-      run(Float.parseFloat(args[0]));
+      trapezoidalRulePi.run(Float.parseFloat(args[0]));
     }
   }
   

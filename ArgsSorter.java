@@ -2,7 +2,7 @@ import java.util.*;
 
 public class ArgsSorter
 {
-  public static void run(String[] args)
+  public void run(String[] args)
   {
     System.out.printf("before: ");
     PrintArray(args);
@@ -11,7 +11,7 @@ public class ArgsSorter
     PrintArray(args);
   }
   
-  public static void PrintArray(String[] args)
+  public void PrintArray(String[] args)
   {
     for (int i = 0; i < args.length; i++)
     {
@@ -21,6 +21,7 @@ public class ArgsSorter
   }
   public static void main(String[] args)
   {
-    run(args);
+    ArgsSorter argsSorter = new ArgsSorter();
+    argsSorter.run(args);
   }
 }

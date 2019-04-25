@@ -4,7 +4,8 @@ public class QuadraticEquation
 {
   public static void main(String[] args)
   {
-    Run(args);
+    QuadraticEquation quadraticEquation = new QuadraticEquation();
+    quadraticEquation.Run(args);
   }
   
   public static void Run(String[] args)
