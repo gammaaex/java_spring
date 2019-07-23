@@ -1,6 +1,14 @@
 /**
  * 学籍番号  : 854003
- * 氏名 　　 : 山内龍我
+ * 氏名   　: 山内龍我
+ *
+ * data[0] : 日付（使わない）
+ * data[1] : readingかwriting（使わない）
+ * data[2] : 問題番号
+ * data[3] : 学生番号
+ * data[4] : 点数
+ * data[5] : 課題を開始した時刻
+ * data[6] : 課題を提出した時刻
  */
 import java.util.*;
 import java.io.*;
