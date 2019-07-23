@@ -1,0 +1,6 @@
+java ScoreAnalyzer5 [OPTIONS] <FILENAME.CSV>
+OPTIONS
+    --help           このメッセージを表示して終了する．
+    --dest <DEST>    ヒートマップの出力先を指定する．
+    --sort <ITEM>    指定された項目の昇順でソートする．
+    --heatmap <TYPE> ヒートマップの種類を指定する．scoreもしくはtime
