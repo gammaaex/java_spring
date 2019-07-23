@@ -1,5 +1,7 @@
-//学籍番号  : 854003
-//氏名 　　 : 山内龍我
+/**
+ * 学籍番号  : 854003
+ * 氏名 　　 : 山内龍我
+ */
 
 import java.util.*;
 import java.io.*;
@@ -17,14 +19,15 @@ class ScoreAnalyzer1
           throws
           IOException
   {
-    int QuestionNum = Integer.valueOf(args[0]);
-    File file = new File(args[1]);
-    HashMap<String, Integer> map = new HashMap<>();
+    int QuestionNum = Integer.valueOf(args[0]); //指定の問題番号
+    File file = new File(args[1]); //ファイル名
+    HashMap<String, Integer> map = new HashMap<>(); //点数とその数のMap
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
     int examineeCount = 0;
     while ((line = br.readLine()) != null)
     {
+      //SetMap
       String[] data = line.split(",");
       if (Integer.valueOf(data[2]) != QuestionNum) continue;
       String score = data[4];
@@ -34,6 +37,7 @@ class ScoreAnalyzer1
     PrintResult(map, examineeCount);
   }
   
+  //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
   void PrintResult(HashMap<String, Integer> map, int examineeCount)
           throws
           IOException
@@ -41,13 +45,13 @@ class ScoreAnalyzer1
     ArrayList<String> output = new ArrayList<>();
     for (String score : map.keySet())
     {
-      if (score.equals(" ")) score = String.valueOf(0);
+      //割合を算出
       float result = ((float) map.get(score) / (float) examineeCount) * 100.0f;
       output.add(String.format("%2s: %6.3f (%d,%d)%n", score, result, map.get(score), examineeCount));
     }
+    //Print用のクラスに全部投げる
     File outputFile = new File("ScoreAnalyzerResult1.csv");
-    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToFile(outputFile, output);
     PrintResultWriter.WriteToConsole(output);
   }
-  
 }

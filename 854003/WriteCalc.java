@@ -1,13 +1,19 @@
-//学籍番号  : 854003
-//氏名 　　 : 山内龍我
+/**
+ * 学籍番号  : 854003
+ * 氏名 　　 : 山内龍我
+ * 最後に出力する最大値や最小値、平均を出力する
+ */
+
 
 import java.util.*;
 import java.io.*;
-class WriteCalc{
+class WriteCalc
+{
   ArrayList<Integer> QuestionList;
-  HashMap<String,HashMap<String,String>> StudentsMap;
+  HashMap<String, HashMap<String, String>> StudentsMap;
   ArrayList<String> Output;
-  public WriteCalc(ArrayList<Integer> questionList , HashMap<String,HashMap<String,String>> studentsMap,
+  
+  public WriteCalc(ArrayList<Integer> questionList, HashMap<String, HashMap<String, String>> studentsMap,
                    ArrayList<String> output)
   {
     QuestionList = questionList;
@@ -31,7 +37,9 @@ class WriteCalc{
     }
     Output.add(String.format("%n"));
   }
-  public void Min(){
+  
+  public void Min()
+  {
     for (var questionNum : QuestionList) //最小値
     {
       int min = 10000;
@@ -39,14 +47,16 @@ class WriteCalc{
       for (var studentNum : StudentsMap.keySet())
       {
         var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        comp = (isNull) ?  10000 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        comp = (isNull) ? 10000 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         min = (min > comp) ? comp : min;
       }
       Output.add("," + min);
     }
     Output.add(String.format("%n"));
   }
-  public void Max(){
+  
+  public void Max()
+  {
     for (var questionNum : QuestionList) //最大値
     {
       int max = 0;
@@ -54,15 +64,11 @@ class WriteCalc{
       for (var studentNum : StudentsMap.keySet())
       {
         var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        comp = (isNull) ?  0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        comp = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         max = (max < comp) ? comp : max;
       }
       Output.add("," + max);
     }
     Output.add(String.format("%n"));
-  }
-  
-  public void AverageTime(){
-  
   }
 }

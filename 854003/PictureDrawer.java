@@ -1,7 +1,8 @@
-//学籍番号  : 854003
-//氏名 　　 : 山内龍我
-
-
+/**
+ * 学籍番号  : 854003
+ * 氏名 　　 : 山内龍我
+ * EZで出力＆画像生成を行う
+ */
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
@@ -10,16 +11,17 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.lang.Math;
 
-class PictureDrawer{
+class PictureDrawer
+{
   HashMap<String, HashMap<String, String>> StudentsMap;
   ArrayList<Integer> QuestionList;
   Integer MaxScore;
   ArrayList<String> SortedStudentList;
   String FileName;
-  
+  //ソートされた学生番号のリストを元にMapからヒートマップを出力する
   public static void DrawSortedPicture(HashMap<String, HashMap<String, String>> StudentsMap,
-                       ArrayList<Integer> QuestionList,
-                       int MaxScore,ArrayList<String> SortedStudentList,String FileName)
+                                       ArrayList<Integer> QuestionList,
+                                       int MaxScore, ArrayList<String> SortedStudentList, String FileName)
           throws
           IOException
   {
@@ -41,10 +43,12 @@ class PictureDrawer{
       y = 0;
       x += 3;
     }
-    outputImage(width, 15,FileName);
+    outputImage(width, 15, FileName);
   }
+  
+  //ソートされてないMapを元にヒートマップの出力を行う。
   public static void DrawPicture(HashMap<String, HashMap<String, String>> StudentsMap,
-                       ArrayList<Integer> QuestionList, Integer MaxScore,String FileName)
+                                 ArrayList<Integer> QuestionList, Integer MaxScore, String FileName)
           throws
           IOException
   {
@@ -61,15 +65,16 @@ class PictureDrawer{
         var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         int score = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, MaxScore), true);
-        
         y += 3;
       }
       y = 0;
       x += 3;
     }
-    outputImage(width, 15,FileName);
+    outputImage(width, 15, FileName);
   }
-  static void outputImage(Integer width, Integer height,String outputFileName) throws
+  
+  //出力されたヒートマップを画像に起こす
+  static void outputImage(Integer width, Integer height, String outputFileName) throws
           IOException
   {
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -77,6 +82,8 @@ class PictureDrawer{
     EZ.app.paintComponent(g);
     ImageIO.write(image, "png", new File(outputFileName));
   }
+  
+  //いい感じの色にしてくれる
   static Color calculatePixelColor(Integer score, Integer maxScore)
   {
     if (score == 0)

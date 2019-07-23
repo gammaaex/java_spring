@@ -1,5 +1,9 @@
-//学籍番号  : 854003
-//氏名 　　 : 山内龍我
+/**
+ * 学籍番号  : 854003
+ * 氏名 　　 : 山内龍我
+ * ScoreAnalyzer4以前で使用するステータス
+ */
+
 import java.util.*;
 import java.io.*;
 class Stats

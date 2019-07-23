@@ -1,5 +1,7 @@
-//学籍番号  : 854003
-//氏名 　　 : 山内龍我
+/**
+ * 学籍番号  : 854003
+ * 氏名 　　 : 山内龍我
+ */
 import java.util.*;
 import java.io.*;
 
@@ -17,36 +19,41 @@ public class ScoreAnalyzer4
           throws
           IOException
   {
-    NullChecker nullChecker = new NullChecker();
     File file = new File(args[0]);
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
-    HashMap<String, HashMap<String, String>> StudentsMap = new HashMap<>();
-    HashMap<String, String> questionNums = new HashMap<>();
-    ArrayList<Integer> questionList = new ArrayList<>();
-    String outputFileName= "heatmap4.png";
-  
-    int maxScore=1;
+    HashMap<String, HashMap<String, String>> StudentsMap = new HashMap<>(); //生徒番号、問題番号、スコア
+    ArrayList<Integer> questionList = new ArrayList<>(); //問題番号のリスト。重複しないようにする用。
+    String outputFileName = "heatmap4.png"; //デフォルト
+    int maxScore = 1;
     while ((line = br.readLine()) != null)
     {
       String[] data = line.split(",");
-      SetMap(StudentsMap,questionList,data);
+      SetMap(StudentsMap, questionList, data);
       maxScore = SetMaxScore(data[4]) > maxScore ? SetMaxScore(data[4]) : maxScore;
     }
-
+    Collections.sort(questionList);
     PrintResult(StudentsMap, questionList);
-    PictureDrawer.DrawPicture(StudentsMap,questionList,maxScore,outputFileName);
+    PictureDrawer.DrawPicture(StudentsMap, questionList, maxScore, outputFileName);
   }
-  private int SetMaxScore(String num){
+  
+  //画像に起こす際に必要な最大値を算出
+  private int SetMaxScore(String num)
+  {
     NullChecker nullChecker = new NullChecker();
-    if(nullChecker.NullCheck(num) || num.equals("")) {
+    if (nullChecker.NullCheck(num) || num.equals(""))
+    {
       return 0;
-    }else{
+    } else
+    {
       return Integer.valueOf(num);
     }
   }
-  private void SetMap(HashMap<String, HashMap<String, String>> StudentsMap ,
-                      ArrayList<Integer> questionList,String[] data){
+  
+  //学生番号、問題番号、スコアをMapにセットする
+  private void SetMap(HashMap<String, HashMap<String, String>> StudentsMap,
+                      ArrayList<Integer> questionList, String[] data)
+  {
     if (StudentsMap.get(data[3]) == null)
     {
       StudentsMap.put(data[3], new HashMap<String, String>());
@@ -55,14 +62,13 @@ public class ScoreAnalyzer4
     {
       StudentsMap.get(data[3]).put(data[2], data[4]);//生徒番号、問題番号、スコア
     }
-    NotNullAddList(questionList, data[2]);
+    if (!(questionList.contains(Integer.valueOf(data[2]))))
+    {
+      questionList.add(Integer.valueOf(data[2]));
+    }
   }
   
-  void NotNullAddList(ArrayList<Integer> scoreList, String score)
-  {
-    if (!(scoreList.contains(Integer.valueOf(score)))) scoreList.add(Integer.valueOf(score));
-  }
-  
+  //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
   public void PrintResult(HashMap<String, HashMap<String, String>> StudentsMap, ArrayList<Integer> questionList)
           throws
           IOException
@@ -81,13 +87,15 @@ public class ScoreAnalyzer4
       output.add("," + studentScore.Status.Min);
       output.add("," + studentScore.Status.Average + String.format("%n"));
     }
-    WriteCalc writeCalc = new WriteCalc(questionList,StudentsMap,output);
+    
+    //WriteCalcのインスタンスを生成して、outputに追加してくれる。
+    WriteCalc writeCalc = new WriteCalc(questionList, StudentsMap, output);
     writeCalc.Max();
     writeCalc.Min();
     writeCalc.Average();
     output.add(String.format("%n"));
     File outputFile = new File("ScoreAnalyzerResult4.csv");
-    PrintResultWriter.WriteToFile(outputFile,output);
-    PrintResultWriter.WriteToConsole(output);  }
-  
+    PrintResultWriter.WriteToFile(outputFile, output);
+    PrintResultWriter.WriteToConsole(output);
+  }
 }
