@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="196df9f7-7f23-45d9-8a35-cfca968f2c2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ForStatic.java" beforeDir="false" afterPath="$PROJECT_DIR$/ForStatic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ForStaticMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/ForStaticMain.java" afterDir="false" />
-    </list>
+    <list default="true" id="196df9f7-7f23-45d9-8a35-cfca968f2c2c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/854003/ScoreAnalyzerResult2.csv">
           <provider selected="true" editor-type-id="csv-text-editor">
             <state relative-caret-position="144">
@@ -53,6 +49,15 @@
           </provider>
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/854003/.gitignore.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="7" selection-start-column="7" selection-end-column="7" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -105,7 +110,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Q_5_Tac.java" />
         <option value="$PROJECT_DIR$/Animation_1.java" />
         <option value="$PROJECT_DIR$/Bound.java" />
         <option value="$PROJECT_DIR$/Print.java" />
@@ -156,6 +160,7 @@
         <option value="$PROJECT_DIR$/854003/ScoreAnalyzer4.java" />
         <option value="$PROJECT_DIR$/854003/ScoreAnalyzer5.java" />
         <option value="$PROJECT_DIR$/854003/ScoreAnalyzer6.java" />
+        <option value="$PROJECT_DIR$/854003/.gitignore" />
       </list>
     </option>
   </component>
@@ -250,18 +255,17 @@
       <workItem from="1563634435660" duration="34430000" />
       <workItem from="1563857079834" duration="94000" />
       <workItem from="1563857285152" duration="417000" />
-      <workItem from="1563858342936" duration="16599000" />
+      <workItem from="1563858342936" duration="16841000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220423000" />
+    <option name="totallyTimeSpent" value="220665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3190272" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3190272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -278,7 +282,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49785408" visible="true" weight="0.20843373" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49785408" visible="true" weight="0.33012047" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50214595" side_tool="true" weight="0.23855421" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -300,7 +304,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/854003/ForTxtPrinter.java.js" />
     <entry file="file://$PROJECT_DIR$/854003/ToTxtWriter.java" />
     <entry file="file://$PROJECT_DIR$/Primes.java">
       <provider selected="true" editor-type-id="text-editor" />
@@ -644,6 +647,13 @@
       </provider>
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/854003/.gitignore.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" selection-start-column="7" selection-end-column="7" />
+        </state>
       </provider>
     </entry>
   </component>
