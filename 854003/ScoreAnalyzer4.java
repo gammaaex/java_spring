@@ -68,7 +68,6 @@ public class ScoreAnalyzer4
           throws
           IOException
   {
-    NullChecker<String> nullChecker = new NullChecker<String>();
     ArrayList<String> output = new ArrayList<>();
     for (var studentNum : StudentsMap.keySet())
     { //学生番号を取得
@@ -76,7 +75,7 @@ public class ScoreAnalyzer4
       output.add(studentNum);
       for (var questionNum : questionList)
       {
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         output.add("," + (isNull ? "" : StudentsMap.get(studentNum).get(String.valueOf(questionNum))));
       }
       output.add("," + studentScore.Status.Max);

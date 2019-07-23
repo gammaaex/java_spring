@@ -1,4 +1,3 @@
-// 基本的に型引数はStringで入ってくるから型決めてもいいかも
 
 
 import java.util.*;
@@ -13,8 +12,5 @@ class NullChecker<T>
     }
     return true;
   }
-
+  
 }
-
-
-

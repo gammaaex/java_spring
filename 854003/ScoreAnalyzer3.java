@@ -44,7 +44,6 @@ public class ScoreAnalyzer3
   public void PrintResult(HashMap<String,HashMap<String,String>> StudentsMap,ArrayList<Integer> questionList)
           throws IOException
   {
-    NullChecker<String> nullChecker = new NullChecker<String>();
     ArrayList<String> output = new ArrayList<>();
     for (var studentNum : StudentsMap.keySet())
     {
@@ -52,7 +51,7 @@ public class ScoreAnalyzer3
       output.add(studentNum);
       for (var questionNum : questionList)
       {
-        boolean isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        boolean isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         output.add("," + ((isNull) ? "" : StudentsMap.get(studentNum).get(String.valueOf(questionNum))));
       }
       output.add("," + studentScore.Status.Max);

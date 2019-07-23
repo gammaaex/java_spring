@@ -45,8 +45,8 @@ class ScoreAnalyzer5
   }
   
   private int SetMaxScore(String num){
-    NullChecker<String> nullChecker = new NullChecker<String>();
-    if(nullChecker.NullCheck(num) || num.equals("")) {
+//    NullChecker<String> nullChecker = new NullChecker<String>();
+    if(NullChecker.NullCheck(num) || num.equals("")) {
       return 0;
     }else{
       return Integer.valueOf(num);
@@ -113,8 +113,7 @@ class ScoreAnalyzer5
       output.add(studentNum);
       for (var questionNum : questionList)
       {
-        NullChecker<String> nullChecker = new NullChecker<String>();
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         output.add("," + (isNull ? "" : StudentsMap.get(studentNum).get(String.valueOf(questionNum))));
         isNull = StudentsTimeMap.get(studentNum).get(String.valueOf(questionNum)) ==null;
         String time = (isNull ? "" : String.valueOf(StudentsTimeMap.get(studentNum).get(String.valueOf(questionNum))));

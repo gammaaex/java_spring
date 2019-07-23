@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-class WriteCalc{
+class WriteCalc extends NullChecker{
   ArrayList<Integer> QuestionList;
   HashMap<String,HashMap<String,String>> StudentsMap;
   ArrayList<String> Output;
@@ -14,7 +14,7 @@ class WriteCalc{
   
   public void Average()
   {
-    NullChecker<String> nullChecker = new NullChecker<String>();
+//    NullChecker<String> nullChecker = new NullChecker<String>();
     
     for (var questionNum : QuestionList) //平均
     {
@@ -22,7 +22,7 @@ class WriteCalc{
       int sum = 0;
       for (var studentNum : StudentsMap.keySet())
       {
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         sum += (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         count = (isNull ? count : count + 1);
       }
@@ -31,7 +31,7 @@ class WriteCalc{
     Output.add(String.format("%n"));
   }
   public void Min(){
-    NullChecker<String> nullChecker = new NullChecker<String>();
+//    NullChecker<String> nullChecker = new NullChecker<String>();
     
     for (var questionNum : QuestionList) //最小値
     {
@@ -39,7 +39,7 @@ class WriteCalc{
       int comp;
       for (var studentNum : StudentsMap.keySet())
       {
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         comp = (isNull) ?  10000 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         min = (min > comp) ? comp : min;
       }
@@ -48,7 +48,7 @@ class WriteCalc{
     Output.add(String.format("%n"));
   }
   public void Max(){
-    NullChecker<String> nullChecker = new NullChecker<String>();
+//    NullChecker<String> nullChecker = new NullChecker<String>();
     
     for (var questionNum : QuestionList) //最大値
     {
@@ -56,7 +56,7 @@ class WriteCalc{
       int comp;
       for (var studentNum : StudentsMap.keySet())
       {
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         comp = (isNull) ?  0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         max = (max < comp) ? comp : max;
       }

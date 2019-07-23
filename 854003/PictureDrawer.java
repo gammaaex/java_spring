@@ -40,7 +40,7 @@ class PictureDrawer{
           IOException
   {
     int width = Math.round(StudentsMap.size() * 3);
-    NullChecker<String> nullChecker = new NullChecker<String>();
+//    NullChecker<String> nullChecker = new NullChecker<String>();
     EZ.initialize(width, 15); //view
     int x = 0;
     int y = 0;
@@ -50,7 +50,7 @@ class PictureDrawer{
       {
         int[] xp = {x, x, x + 5, x + 5};
         int[] yp = {y, y + 5, y + 5, y};
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         int score = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, MaxScore), true);
         y += 3;
@@ -64,7 +64,7 @@ class PictureDrawer{
           throws
           IOException
   {
-    NullChecker<String> nullChecker = new NullChecker<String>();
+//    NullChecker<String> nullChecker = new NullChecker<String>();
     int width = Math.round(StudentsMap.size() * 3);
     EZ.initialize(width, 15); //view
     int x = 0;
@@ -75,7 +75,7 @@ class PictureDrawer{
       {
         int[] xp = {x, x, x + 5, x + 5};
         int[] yp = {y, y + 5, y + 5, y};
-        var isNull = nullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         int score = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
         EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, MaxScore), true);
         
