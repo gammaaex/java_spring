@@ -88,7 +88,7 @@ public class ScoreAnalyzer4
     writeCalc.Average();
     output.add(String.format("%n"));
     File outputFile = new File("ScoreAnalyzerResult4.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile, output);
-  }
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);  }
   
 }

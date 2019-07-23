@@ -125,8 +125,8 @@ class ScoreAnalyzer6
     writeCalc.Min();
     writeCalc.Average();
     File outputFile = new File("ScoreAnalyzerResult5.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile,output);
-    
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);
   }
   public void PrintHelp()
           throws IOException

@@ -73,7 +73,8 @@ class ScoreAnalyzer2
       output.add(String.format("%n"));
     }
     File outputFile = new File("ScoreAnalyzerResult2.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile,output);
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);
   }
   void PrintNotNullKey(HashMap<String,HashMap<String,Integer>> map,String questionNum,
                        Integer score,HashMap<String,Integer> examinCounts,ArrayList<String> output){

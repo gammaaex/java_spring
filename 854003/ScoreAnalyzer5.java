@@ -45,7 +45,6 @@ class ScoreAnalyzer5
   }
   
   private int SetMaxScore(String num){
-//    NullChecker<String> nullChecker = new NullChecker<String>();
     if(NullChecker.NullCheck(num) || num.equals("")) {
       return 0;
     }else{
@@ -129,8 +128,8 @@ class ScoreAnalyzer5
     writeCalc.Min();
     writeCalc.Average();
     File outputFile = new File("ScoreAnalyzerResult5.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile,output);
-  
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);
   }
   public void PrintHelp()
           throws IOException

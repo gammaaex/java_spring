@@ -27,6 +27,7 @@ class ScoreAnalyzer1
     {
       String[] data = line.split(",");
       if (Integer.valueOf(data[2]) != QuestionNum) continue;
+      String score = data[4];
       map.put(score, (map.get(score) == null) ? 1 : map.get(score) + 1);
       examineeCount++;
     }
@@ -45,7 +46,8 @@ class ScoreAnalyzer1
       output.add(String.format("%2s: %6.3f (%d,%d)%n", score, result, map.get(score), examineeCount));
     }
     File outputFile = new File("ScoreAnalyzerResult1.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile, output);
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);
   }
   
 }

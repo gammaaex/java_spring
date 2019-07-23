@@ -63,6 +63,6 @@ public class ScoreAnalyzer3
     writeCalc.Min();
     writeCalc.Average();
     File outputFile = new File("ScoreAnalyzerResult3.csv");
-    PrintResultWriter printResultWriter = new PrintResultWriter(outputFile,output);
-  }
+    PrintResultWriter.WriteToFile(outputFile,output);
+    PrintResultWriter.WriteToConsole(output);  }
 }

@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-class WriteCalc extends NullChecker{
+class WriteCalc{
   ArrayList<Integer> QuestionList;
   HashMap<String,HashMap<String,String>> StudentsMap;
   ArrayList<String> Output;
@@ -14,8 +14,6 @@ class WriteCalc extends NullChecker{
   
   public void Average()
   {
-//    NullChecker<String> nullChecker = new NullChecker<String>();
-    
     for (var questionNum : QuestionList) //平均
     {
       int count = 0;
@@ -31,8 +29,6 @@ class WriteCalc extends NullChecker{
     Output.add(String.format("%n"));
   }
   public void Min(){
-//    NullChecker<String> nullChecker = new NullChecker<String>();
-    
     for (var questionNum : QuestionList) //最小値
     {
       int min = 10000;
@@ -48,8 +44,6 @@ class WriteCalc extends NullChecker{
     Output.add(String.format("%n"));
   }
   public void Max(){
-//    NullChecker<String> nullChecker = new NullChecker<String>();
-    
     for (var questionNum : QuestionList) //最大値
     {
       int max = 0;

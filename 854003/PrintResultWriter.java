@@ -3,28 +3,28 @@ import java.io.*;
 
 class PrintResultWriter
 {
-  private File file;
-  private ArrayList<String> messages;
+//  private File file;
+//  private ArrayList<String> messages;
   
-  public PrintResultWriter(File _file, ArrayList<String> _messages) throws
+//  public PrintResultWriter(File _file, ArrayList<String> _messages) throws
+//          IOException
+//  {
+//    file = _file;
+//    messages = _messages;
+//    WriteToConsole();
+//    WriteToFile();
+//  }
+  
+  public static void WriteToFile(File _file, ArrayList<String> _messages) throws
           IOException
   {
-    file = _file;
-    messages = _messages;
-    WriteToConsole();
-    WriteToFile();
-  }
-  
-  public void WriteToFile() throws
-          IOException
-  {
-    PrintWriter out = new PrintWriter(new FileWriter(file));
-    messages.forEach(t -> { out.print(t); });
+    PrintWriter out = new PrintWriter(new FileWriter(_file));
+    _messages.forEach(t -> { out.print(t); });
     out.close();
   }
   
-  public void WriteToConsole()
+  public static void WriteToConsole(ArrayList<String> _messages)
   {
-    messages.forEach(t -> { System.out.printf(t); });
+    _messages.forEach(t -> { System.out.printf(t); });
   }
 }
