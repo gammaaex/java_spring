@@ -233,15 +233,15 @@ class ScoreAnalyzer5
   public ArrayList<String> SortMap(HashMap<String, HashMap<String, String>> StudentsMap,
                                    HashMap<String, HashMap<String, Integer>> StudentsTimeMap, Arguments arguments)
   {
-    if (arguments.sortKey.equals("id"))
+    if (arguments.SortKey.equals("id"))
     {
       return SortStudentsId(StudentsMap);
     }
-    if (arguments.sortKey.equals("score"))
+    if (arguments.SortKey.equals("score"))
     {
       return SortStudentsScore(StudentsMap, StudentsTimeMap);
     }
-    if (arguments.sortKey.equals("time"))
+    if (arguments.SortKey.equals("time"))
     {
       return SortStudentsTime(StudentsMap, StudentsTimeMap);
     }

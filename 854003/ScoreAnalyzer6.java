@@ -51,7 +51,7 @@ class ScoreAnalyzer6
     Collections.sort(questionList);
     StudentList = SortMap(StudentsMap, StudentsTimeMap, arguments);
     PrintResult(StudentsMap, questionList, StudentsTimeMap, StudentList);
-    PictureDrawer.DrawSortedPicture(StudentsMap, questionList, maxScore, StudentList, arguments.dest);
+    PictureDrawer.DrawSortedPicture(StudentsMap, questionList, maxScore, StudentList, arguments.Dest);
   }
   
   private int SetMaxScore(String num)
@@ -232,15 +232,15 @@ class ScoreAnalyzer6
   public ArrayList<String> SortMap(HashMap<String, HashMap<String, String>> StudentsMap,
                                    HashMap<String, HashMap<String, Integer>> StudentsTimeMap, Arguments arguments)
   {
-    if (arguments.sortKey.equals("id"))
+    if (arguments.SortKey.equals("id"))
     {
       return SortStudentsId(StudentsMap);
     }
-    if (arguments.sortKey.equals("score"))
+    if (arguments.SortKey.equals("score"))
     {
       return SortStudentsScore(StudentsMap, StudentsTimeMap);
     }
-    if (arguments.sortKey.equals("time"))
+    if (arguments.SortKey.equals("time"))
     {
       return SortStudentsTime(StudentsMap, StudentsTimeMap);
     }
