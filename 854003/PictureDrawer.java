@@ -13,64 +13,65 @@ import java.lang.Math;
 
 class PictureDrawer
 {
-  HashMap<String, HashMap<String, String>> StudentsMap;
-  ArrayList<Integer> QuestionList;
-  Integer MaxScore;
-  ArrayList<String> SortedStudentList;
-  String FileName;
+  private HashMap<String, HashMap<String, String>> StudentsMap;
+  private ArrayList<Integer> QuestionList;
+  private Integer MaxScore;
+  private ArrayList<String> SortedStudentList;
+  private String FileName;
+  
   //ソートされた学生番号のリストを元にMapからヒートマップを出力する
-  public static void DrawSortedPicture(HashMap<String, HashMap<String, String>> StudentsMap,
-                                       ArrayList<Integer> QuestionList,
-                                       int MaxScore, ArrayList<String> SortedStudentList, String FileName)
+  public static void DrawSortedPicture(HashMap<String, HashMap<String, String>> studentsMap,
+                                       ArrayList<Integer> questionList,
+                                       int maxScore, ArrayList<String> sortedStudentList, String fileName)
           throws
           IOException
   {
-    int width = Math.round(StudentsMap.size() * 3);
+    int width = Math.round(studentsMap.size() * 3);
     EZ.initialize(width, 15); //view
     int x = 0;
     int y = 0;
-    for (var studentNum : SortedStudentList)
+    for (var studentNum : sortedStudentList)
     {
-      for (var questionNum : QuestionList)
+      for (var questionNum : questionList)
       {
         int[] xp = {x, x, x + 5, x + 5};
         int[] yp = {y, y + 5, y + 5, y};
-        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        int score = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, MaxScore), true);
+        var isNull = NullChecker.NullCheck(studentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        int score = (isNull) ? 0 : Integer.valueOf(studentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, maxScore), true);
         y += 3;
       }
       y = 0;
       x += 3;
     }
-    outputImage(width, 15, FileName);
+    outputImage(width, 15, fileName);
   }
   
   //ソートされてないMapを元にヒートマップの出力を行う。
-  public static void DrawPicture(HashMap<String, HashMap<String, String>> StudentsMap,
-                                 ArrayList<Integer> QuestionList, Integer MaxScore, String FileName)
+  public static void DrawPicture(HashMap<String, HashMap<String, String>> studentsMap,
+                                 ArrayList<Integer> questionList, Integer maxScore, String fileName)
           throws
           IOException
   {
-    int width = Math.round(StudentsMap.size() * 3);
+    int width = Math.round(studentsMap.size() * 3);
     EZ.initialize(width, 15); //view
     int x = 0;
     int y = 0;
-    for (var studentNum : StudentsMap.keySet())
+    for (var studentNum : studentsMap.keySet())
     {
-      for (var questionNum : QuestionList)
+      for (var questionNum : questionList)
       {
         int[] xp = {x, x, x + 5, x + 5};
         int[] yp = {y, y + 5, y + 5, y};
-        var isNull = NullChecker.NullCheck(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        int score = (isNull) ? 0 : Integer.valueOf(StudentsMap.get(studentNum).get(String.valueOf(questionNum)));
-        EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, MaxScore), true);
+        var isNull = NullChecker.NullCheck(studentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        int score = (isNull) ? 0 : Integer.valueOf(studentsMap.get(studentNum).get(String.valueOf(questionNum)));
+        EZPolygon polygon = EZ.addPolygon(xp, yp, calculatePixelColor(score, maxScore), true);
         y += 3;
       }
       y = 0;
       x += 3;
     }
-    outputImage(width, 15, FileName);
+    outputImage(width, 15, fileName);
   }
   
   //出力されたヒートマップを画像に起こす
