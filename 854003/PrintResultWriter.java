@@ -1,20 +1,11 @@
+//学籍番号  : 854003
+//氏名 　　 : 山内龍我
+
 import java.util.*;
 import java.io.*;
 
 class PrintResultWriter
 {
-//  private File file;
-//  private ArrayList<String> messages;
-  
-//  public PrintResultWriter(File _file, ArrayList<String> _messages) throws
-//          IOException
-//  {
-//    file = _file;
-//    messages = _messages;
-//    WriteToConsole();
-//    WriteToFile();
-//  }
-  
   public static void WriteToFile(File _file, ArrayList<String> _messages) throws
           IOException
   {

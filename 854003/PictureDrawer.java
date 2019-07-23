@@ -1,3 +1,7 @@
+//学籍番号  : 854003
+//氏名 　　 : 山内龍我
+
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
@@ -12,35 +16,14 @@ class PictureDrawer{
   Integer MaxScore;
   ArrayList<String> SortedStudentList;
   String FileName;
-  public PictureDrawer(HashMap<String, HashMap<String, String>> studentsMap,
-                       ArrayList<Integer> questionList, Integer maxScore,String fileName)
-          throws IOException
-  {
-   StudentsMap = studentsMap;
-   QuestionList = questionList;
-   MaxScore = maxScore;
-   FileName = fileName;
-  }
   
-  public PictureDrawer(HashMap<String, HashMap<String, String>> studentsMap,
-                       ArrayList<Integer> questionList,
-                       int maxScore,ArrayList<String> sortedStudentList,String outputFileName)
-          throws
-          IOException
-  {
-    StudentsMap = studentsMap;
-    QuestionList = questionList;
-    MaxScore = maxScore;
-    FileName = outputFileName;
-    SortedStudentList = sortedStudentList;
-  }
-  
-  public void DrawSortedPicture()
+  public static void DrawSortedPicture(HashMap<String, HashMap<String, String>> StudentsMap,
+                       ArrayList<Integer> QuestionList,
+                       int MaxScore,ArrayList<String> SortedStudentList,String FileName)
           throws
           IOException
   {
     int width = Math.round(StudentsMap.size() * 3);
-//    NullChecker<String> nullChecker = new NullChecker<String>();
     EZ.initialize(width, 15); //view
     int x = 0;
     int y = 0;
@@ -60,11 +43,11 @@ class PictureDrawer{
     }
     outputImage(width, 15,FileName);
   }
-  public void DrawPicture()
+  public static void DrawPicture(HashMap<String, HashMap<String, String>> StudentsMap,
+                       ArrayList<Integer> QuestionList, Integer MaxScore,String FileName)
           throws
           IOException
   {
-//    NullChecker<String> nullChecker = new NullChecker<String>();
     int width = Math.round(StudentsMap.size() * 3);
     EZ.initialize(width, 15); //view
     int x = 0;
@@ -86,7 +69,7 @@ class PictureDrawer{
     }
     outputImage(width, 15,FileName);
   }
-  void outputImage(Integer width, Integer height,String outputFileName) throws
+  static void outputImage(Integer width, Integer height,String outputFileName) throws
           IOException
   {
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -94,7 +77,7 @@ class PictureDrawer{
     EZ.app.paintComponent(g);
     ImageIO.write(image, "png", new File(outputFileName));
   }
-  Color calculatePixelColor(Integer score, Integer maxScore)
+  static Color calculatePixelColor(Integer score, Integer maxScore)
   {
     if (score == 0)
     {

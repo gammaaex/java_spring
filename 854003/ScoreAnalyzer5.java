@@ -40,8 +40,7 @@ class ScoreAnalyzer5
     StudentList = SortMap(StudentsMap, StudentsTimeMap, arguments);
     PrintResult(StudentsMap, questionList, StudentsTimeMap, StudentList);
     String outputFileName = "heatmap5.png";
-    PictureDrawer pictureDrawer = new PictureDrawer(StudentsMap,questionList,maxScore,outputFileName);
-    pictureDrawer.DrawPicture();
+    PictureDrawer.DrawPicture(StudentsMap,questionList,maxScore,outputFileName);
   }
   
   private int SetMaxScore(String num){

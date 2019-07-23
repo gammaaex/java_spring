@@ -37,8 +37,7 @@ class ScoreAnalyzer6
     }
     StudentList = SortMap(StudentsMap, StudentsTimeMap, arguments);
     PrintResult(StudentsMap, questionList, StudentsTimeMap, StudentList);
-    PictureDrawer pictureDrawer = new PictureDrawer(StudentsMap,questionList,maxScore,StudentList,arguments.dest);
-    pictureDrawer.DrawSortedPicture();
+    PictureDrawer.DrawSortedPicture(StudentsMap,questionList,maxScore,StudentList,arguments.dest);
   }
   
   private int SetMaxScore(String num){

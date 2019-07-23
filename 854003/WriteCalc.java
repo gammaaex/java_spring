@@ -1,3 +1,6 @@
+//学籍番号  : 854003
+//氏名 　　 : 山内龍我
+
 import java.util.*;
 import java.io.*;
 class WriteCalc{

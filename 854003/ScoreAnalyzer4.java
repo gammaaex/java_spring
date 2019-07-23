@@ -35,8 +35,7 @@ public class ScoreAnalyzer4
     }
 
     PrintResult(StudentsMap, questionList);
-    PictureDrawer pictureDrawer = new PictureDrawer(StudentsMap,questionList,maxScore,outputFileName);
-    pictureDrawer.DrawPicture();
+    PictureDrawer.DrawPicture(StudentsMap,questionList,maxScore,outputFileName);
   }
   private int SetMaxScore(String num){
     NullChecker nullChecker = new NullChecker();
