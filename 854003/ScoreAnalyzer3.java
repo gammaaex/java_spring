@@ -12,8 +12,12 @@
  */
 import java.util.*;
 import java.io.*;
-public class ScoreAnalyzer3
+public class ScoreAnalyzer3 extends ScoreAnalyzer
 {
+  HashMap<String, HashMap<String, String>> StudentsMap;
+  ArrayList<Integer> questionList;
+  ArrayList<String> output;
+  
   public static void main(String[] args)
           throws
           IOException
@@ -22,31 +26,36 @@ public class ScoreAnalyzer3
     scoreAnalyzer3.Run(args);
   }
   
+  void Initialize(){
+    StudentsMap = new HashMap<>(); //学生番号、問題番号、スコア
+    questionList = new ArrayList<>();
+    output = new ArrayList<>();
+  }
+  
   private void Run(String[] args)
           throws
           IOException
   {
+    Initialize();
     File file = new File(args[0]);
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
-    HashMap<String, HashMap<String, String>> StudentsMap = new HashMap<>(); //学生番号、問題番号、スコア
-    ArrayList<Integer> questionList = new ArrayList<>();
     while ((line = br.readLine()) != null)
     {
       String[] data = line.split(",");
-      SetMap(StudentsMap, questionList, data);
+      SetMap(data);
     }
     Collections.sort(questionList);
-    PrintResult(StudentsMap, questionList);
+    PrintResult();
   }
   
   //学生番号、問題番号、スコアをMapにセットする
-  private void SetMap(HashMap<String, HashMap<String, String>> StudentsMap, ArrayList<Integer> questionList, String[] data)
+  private void SetMap(String[] data)
   {
     if (StudentsMap.get(data[3]) == null)
     {
       StudentsMap.put(data[3], new HashMap<String, String>());
-      StudentsMap.get(data[3]).put(data[2], data[4]);
+      StudentsMap.get(data[3]).put(data[2], data[4]);//生徒番号、問題番号、スコア
     } else
     {
       StudentsMap.get(data[3]).put(data[2], data[4]);//生徒番号、問題番号、スコア
@@ -58,11 +67,10 @@ public class ScoreAnalyzer3
   }
   
   //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
-  public void PrintResult(HashMap<String, HashMap<String, String>> StudentsMap, ArrayList<Integer> questionList)
+  public void PrintResult()
           throws
           IOException
   {
-    ArrayList<String> output = new ArrayList<>();
     for (var studentNum : StudentsMap.keySet())
     {
       StudentScore studentScore = new StudentScore(StudentsMap, studentNum);

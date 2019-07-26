@@ -13,8 +13,16 @@
 import java.util.*;
 import java.io.*;
 
-class ScoreAnalyzer6
+class ScoreAnalyzer6 extends ScoreAnalyzer
 {
+  HashMap<String, HashMap<String, String>> StudentsMap;
+  HashMap<String, HashMap<String, Integer>> StudentsTimeMap;
+  ArrayList<Integer> questionList;
+  ArrayList<String> StudentList;
+  ArrayList<String> output;
+  String outputFileName;
+  int maxScore;
+  
   public static void main(String[] args)
           throws
           IOException
@@ -28,30 +36,37 @@ class ScoreAnalyzer6
     scoreAnalyzer6.Run(arguments);
   }
   
+  void Initialize()
+  {
+    StudentsMap = new HashMap<>(); //学生番号、問題番号、点数
+    StudentsTimeMap = new HashMap<>();  //学生番号、問題番号、Time（計算済み）
+    questionList = new ArrayList<>();
+    StudentList = new ArrayList<>();
+    output = new ArrayList<>();
+    maxScore = 0;
+    outputFileName = "heatmap5.png";
+  }
+  
   public void Run(Arguments arguments)
           throws
           IOException
   {
+    Initialize();
     File file = new File(arguments.InputFileName);
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
-    HashMap<String, HashMap<String, String>> StudentsMap = new HashMap<>(); //学生番号、問題番号、score
-    HashMap<String, HashMap<String, Integer>> StudentsTimeMap = new HashMap<>();  //学生番号、問題番号、Time
-    ArrayList<Integer> questionList = new ArrayList<>(); //重複しない問題番号のリスト
-    ArrayList<String> StudentList = new ArrayList<>(); //ソートするための学生番号を持つリスト
-    
-    int maxScore = 0;
     while ((line = br.readLine()) != null)
     {
       String[] data = line.split(",");
-      SetMap(StudentsMap, questionList, data);
-      SetMapTime(StudentsTimeMap, data);
+      SetMap(data);
+      SetMapTime(data);
       maxScore = SetMaxScore(data[4]) > maxScore ? SetMaxScore(data[4]) : maxScore;
     }
+    
     Collections.sort(questionList);
-    StudentList = SortMap(StudentsMap, StudentsTimeMap, arguments);
-    PrintResult(StudentsMap, questionList, StudentsTimeMap, StudentList);
-    PictureDrawer.DrawSortedPicture(StudentsMap, questionList, maxScore, StudentList, arguments.Dest);
+    StudentList = SortMap(arguments);
+    PrintResult(); //ソートしたStudentListを入れている
+    PictureDrawer.DrawSortedPicture(StudentsMap, questionList, maxScore, StudentList ,arguments.Dest);
   }
   
   private int SetMaxScore(String num)
@@ -65,9 +80,8 @@ class ScoreAnalyzer6
     }
   }
   
-  //学生番号、問題番号、点数のMapをセットする
-  private void SetMap(HashMap<String, HashMap<String, String>> StudentsMap,
-                      ArrayList<Integer> questionList, String[] data)
+  //学生番号、問題番号、スコアをMapにセットする
+  private void SetMap(String[] data)
   {
     if (StudentsMap.get(data[3]) == null)
     {
@@ -83,21 +97,21 @@ class ScoreAnalyzer6
     }
   }
   
-  //学生番号、問題番号、かかった時間のMapをセットする
-  private void SetMapTime(HashMap<String, HashMap<String, Integer>> StudentsTimeMap, String[] data)
+  //学生番号、問題番号、時間をMapにセットする
+  private void SetMapTime(String[] data)
   {
     if (StudentsTimeMap.get(data[3]) == null)
     {
       StudentsTimeMap.put(data[3], new HashMap<String, Integer>());
-      StudentsTimeMap.get(data[3]).put(data[2], SubmittedExam(data, StudentsTimeMap));//dataの大きさで時間を返す
+      StudentsTimeMap.get(data[3]).put(data[2], SubmittedExam(data));//dataの大きさで時間を返す
     } else
     {
-      StudentsTimeMap.get(data[3]).put(data[2], SubmittedExam(data, StudentsTimeMap));//dataの大きさで時間を返す
+      StudentsTimeMap.get(data[3]).put(data[2], SubmittedExam(data));//dataの大きさで時間を返す
     }
   }
   
   //未提出の時、nullを返す
-  public Integer SubmittedExam(String[] data, HashMap<String, HashMap<String, Integer>> StudentsTimeMap)
+  public Integer SubmittedExam(String[] data)
   {
     if (data.length > 6)
     {
@@ -106,7 +120,7 @@ class ScoreAnalyzer6
     return null;
   }
   
-  //かかった時間を算出
+  // かかった時間を返す
   public Integer ConvertTimeCorrect(String startTime, String endTime)
   {
     String[] _startTime = startTime.split(":");
@@ -119,13 +133,11 @@ class ScoreAnalyzer6
   }
   
   //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
-  public void PrintResult(HashMap<String, HashMap<String, String>> StudentsMap, ArrayList<Integer> questionList,
-                          HashMap<String, HashMap<String, Integer>> StudentsTimeMap, ArrayList<String> sortedStudentList)
+  public void PrintResult()
           throws
           IOException
   {
-    ArrayList<String> output = new ArrayList<>();
-    for (var studentNum : sortedStudentList)
+    for (var studentNum : StudentList)
     { //学生番号を取得
       StudentScore5 studentScore = new StudentScore5(StudentsMap, StudentsTimeMap, studentNum);
       output.add(studentNum);
@@ -141,7 +153,6 @@ class ScoreAnalyzer6
       output.add("," + studentScore.Status.Min);
       output.add("," + studentScore.Status.Average + String.format("%n"));
     }
-    
     WriteCalc writeCalc = new WriteCalc(questionList, StudentsMap, output);
     writeCalc.Max();
     writeCalc.Min();
@@ -163,7 +174,7 @@ class ScoreAnalyzer6
   }
   
   //Mapを入れたらIdでソート、ソートされた学生番号をリストで返す
-  public ArrayList<String> SortStudentsId(HashMap<String, HashMap<String, String>> StudentsMap)
+  public ArrayList<String> SortStudentsId()
   {
     ArrayList<Integer> list = new ArrayList<>();
     ArrayList<String> sortedStudentsList = new ArrayList<>();
@@ -181,8 +192,7 @@ class ScoreAnalyzer6
   }
   
   //Mapを入れたらスコアの平均でソート、ソートされた学生番号をリストで返す
-  public ArrayList<String> SortStudentsScore(HashMap<String, HashMap<String, String>> StudentsMap,
-                                             HashMap<String, HashMap<String, Integer>> StudentsTimeMap)
+  public ArrayList<String> SortStudentsScore()
   {
     ArrayList<Double> sortedStudentAverageList = new ArrayList<>();
     HashMap<String, Double> StudentAverageMap = new HashMap<>();
@@ -195,18 +205,17 @@ class ScoreAnalyzer6
     }
     Collections.sort(sortedStudentAverageList);
     for (var averageNum : sortedStudentAverageList)
-    { //平均がソートされている
+    {
       for (var studentNum : StudentAverageMap.keySet()) //対応ずけを確認
       {
-        sortedStudentList = ContainsList(StudentAverageMap.get(studentNum), averageNum, sortedStudentList, studentNum);
+        sortedStudentList = ContainsList(StudentAverageMap.get(studentNum), averageNum, studentNum);
       }
     }
     return sortedStudentList;
   }
   
   //Mapを入れたら時間の平均でソート、ソートされた学生番号をリストで返す
-  public ArrayList<String> SortStudentsTime(HashMap<String, HashMap<String, String>> StudentsMap,
-                                            HashMap<String, HashMap<String, Integer>> StudentsTimeMap)
+  public ArrayList<String> SortStudentsTime()
   {
     ArrayList<Double> sortedStudentAverageList = new ArrayList<>();
     HashMap<String, Double> StudentAverageMap = new HashMap<>();
@@ -222,43 +231,42 @@ class ScoreAnalyzer6
     {
       for (var studentNum : StudentAverageMap.keySet()) //対応ずけを確認
       {
-        sortedStudentList = ContainsList(StudentAverageMap.get(studentNum), averageNum, sortedStudentList, studentNum);
+        sortedStudentList = ContainsList(StudentAverageMap.get(studentNum), averageNum, studentNum);
       }
     }
     return sortedStudentList;
   }
   
   //オプションで指定されたものに対してどのソートを行うか
-  public ArrayList<String> SortMap(HashMap<String, HashMap<String, String>> StudentsMap,
-                                   HashMap<String, HashMap<String, Integer>> StudentsTimeMap, Arguments arguments)
+  public ArrayList<String> SortMap( Arguments arguments)
   {
     if (arguments.SortKey.equals("id"))
     {
-      return SortStudentsId(StudentsMap);
+      return SortStudentsId();
     }
     if (arguments.SortKey.equals("score"))
     {
-      return SortStudentsScore(StudentsMap, StudentsTimeMap);
+      return SortStudentsScore();
     }
     if (arguments.SortKey.equals("time"))
     {
-      return SortStudentsTime(StudentsMap, StudentsTimeMap);
+      return SortStudentsTime();
     }
     return new ArrayList<String>(StudentsMap.keySet());
   }
   
   //ネスト回避
   public ArrayList<String> ContainsList(Double Average1, Double Average2,
-                                        ArrayList<String> sortedStudentList, String studentNum)
+                                        String studentNum)
   {
     if (Average1.equals(Average2))
     {
-      if (!sortedStudentList.contains(studentNum))
+      if (!StudentList.contains(studentNum))
       {
-        sortedStudentList.add(studentNum);
-        return sortedStudentList;
+        StudentList.add(studentNum);
+        return StudentList;
       }
     }
-    return sortedStudentList;
+    return StudentList;
   }
 }

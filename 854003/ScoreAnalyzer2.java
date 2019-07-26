@@ -12,8 +12,12 @@
  */
 import java.util.*;
 import java.io.*;
-class ScoreAnalyzer2
+class ScoreAnalyzer2 extends ScoreAnalyzer
 {
+  HashMap<String, HashMap<String, Integer>> map;
+  ArrayList<Integer> scoreList;
+  HashMap<String, Integer> examinCounts;
+  ArrayList<String> output;
   public static void main(String[] args)
           throws
           IOException
@@ -26,10 +30,8 @@ class ScoreAnalyzer2
           throws
           IOException
   {
+    Initialize();
     File file = new File(args[0]);
-    HashMap<String, HashMap<String, Integer>> map = new HashMap<>(); //問題番号、点数、人の数
-    ArrayList<Integer> scoreList = new ArrayList<>();    //重複しない動的な点数
-    HashMap<String, Integer> examinCounts = new HashMap<>(); //問題番号、問題を受けた人の数
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
     while ((line = br.readLine()) != null)
@@ -49,7 +51,14 @@ class ScoreAnalyzer2
       NotNullAddList(scoreList, data[4]);
     }
     Collections.sort(scoreList);
-    PrintResult(map, scoreList, examinCounts);
+    PrintResult();
+  }
+  
+  void Initialize(){
+    map = new HashMap<>(); //問題番号、点数、人の数
+    scoreList = new ArrayList<>();    //重複しない動的な点数
+    examinCounts = new HashMap<>(); //問題番号、問題を受けた人の数
+    output = new ArrayList<>();
   }
   
   //入ってきたStringがnullか""じゃなかったらaddする。参照。
@@ -64,12 +73,10 @@ class ScoreAnalyzer2
   }
   
   //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
-  void PrintResult(HashMap<String, HashMap<String, Integer>> map, ArrayList<Integer> scoreList,
-                   HashMap<String, Integer> examinCounts)
+  void PrintResult()
           throws
           IOException
   {
-    ArrayList<String> output = new ArrayList<>();
     for (var score : scoreList)
     {
       output.add("," + score);
@@ -81,7 +88,7 @@ class ScoreAnalyzer2
       output.add(questionNum);
       for (var score : scoreList)
       {
-        PrintNotNullKey(map, questionNum, score, examinCounts, output);
+        PrintNotNullKey(questionNum, score);
       }
       output.add(String.format("%n"));
     }
@@ -91,8 +98,7 @@ class ScoreAnalyzer2
   }
   
   //ネストを回避するため、nullじゃなかったら計算してoutputに入れる、ここのoutputも参照
-  void PrintNotNullKey(HashMap<String, HashMap<String, Integer>> map, String questionNum,
-                       Integer score, HashMap<String, Integer> examinCounts, ArrayList<String> output)
+  void PrintNotNullKey(String questionNum, Integer score)
   {
     if (map.get(questionNum).get(String.valueOf(score)) != null)
     {

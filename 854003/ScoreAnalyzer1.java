@@ -13,8 +13,11 @@
 
 import java.util.*;
 import java.io.*;
-class ScoreAnalyzer1
+class ScoreAnalyzer1 extends IScoreAnalyzer
 {
+
+  private HashMap<String,Integer> map;
+  ArrayList<String> output;
   public static void main(String[] args)
           throws
           IOException
@@ -27,9 +30,9 @@ class ScoreAnalyzer1
           throws
           IOException
   {
+    Initialize();
     int QuestionNum = Integer.valueOf(args[0]); //指定の問題番号
     File file = new File(args[1]); //ファイル名
-    HashMap<String, Integer> map = new HashMap<>(); //点数とその数のMap
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
     int examineeCount = 0;
@@ -42,15 +45,19 @@ class ScoreAnalyzer1
       map.put(score, (map.get(score) == null) ? 1 : map.get(score) + 1);
       examineeCount++;
     }
-    PrintResult(map, examineeCount);
+    PrintResult(examineeCount);
+  }
+  
+  void Initialize(){
+    map = new HashMap<>(); //点数とその数のMap
+    output = new ArrayList<>();
   }
   
   //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
-  void PrintResult(HashMap<String, Integer> map, int examineeCount)
+  void PrintResult(int examineeCount)
           throws
           IOException
   {
-    ArrayList<String> output = new ArrayList<>();
     for (String score : map.keySet())
     {
       //割合を算出

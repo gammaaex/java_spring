@@ -13,8 +13,13 @@
 import java.util.*;
 import java.io.*;
 
-public class ScoreAnalyzer4
+public class ScoreAnalyzer4 extends ScoreAnalyzer
 {
+  HashMap<String, HashMap<String, String>> StudentsMap;
+  ArrayList<Integer> questionList;
+  String outputFileName;
+  ArrayList<String> output;
+  int maxScore;
   public static void main(String[] args)
           throws
           IOException
@@ -27,22 +32,27 @@ public class ScoreAnalyzer4
           throws
           IOException
   {
+    Initialize();
     File file = new File(args[0]);
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
     String line;
-    HashMap<String, HashMap<String, String>> StudentsMap = new HashMap<>(); //生徒番号、問題番号、スコア
-    ArrayList<Integer> questionList = new ArrayList<>(); //問題番号のリスト。重複しないようにする用。
-    String outputFileName = "heatmap4.png"; //デフォルト
-    int maxScore = 1;
     while ((line = br.readLine()) != null)
     {
       String[] data = line.split(",");
-      SetMap(StudentsMap, questionList, data);
+      SetMap(data);
       maxScore = SetMaxScore(data[4]) > maxScore ? SetMaxScore(data[4]) : maxScore;
     }
     Collections.sort(questionList);
-    PrintResult(StudentsMap, questionList);
+    PrintResult();
     PictureDrawer.DrawPicture(StudentsMap, questionList, maxScore, outputFileName);
+  }
+  
+  void Initialize(){
+    StudentsMap = new HashMap<>(); //生徒番号、問題番号、スコア
+    questionList = new ArrayList<>(); //問題番号のリスト。重複しないようにする用。
+    outputFileName = "heatmap4.png"; //デフォルト
+    maxScore = 1;
+    output = new ArrayList<>();
   }
   
   //画像に起こす際に必要な最大値を算出
@@ -59,8 +69,7 @@ public class ScoreAnalyzer4
   }
   
   //学生番号、問題番号、スコアをMapにセットする
-  private void SetMap(HashMap<String, HashMap<String, String>> StudentsMap,
-                      ArrayList<Integer> questionList, String[] data)
+  private void SetMap(String[] data)
   {
     if (StudentsMap.get(data[3]) == null)
     {
@@ -77,11 +86,10 @@ public class ScoreAnalyzer4
   }
   
   //必要な情報をMapからoutputに入れ、PrintResultWriterクラスに全投げ
-  public void PrintResult(HashMap<String, HashMap<String, String>> StudentsMap, ArrayList<Integer> questionList)
+  public void PrintResult()
           throws
           IOException
   {
-    ArrayList<String> output = new ArrayList<>();
     for (var studentNum : StudentsMap.keySet())
     { //学生番号を取得
       StudentScore studentScore = new StudentScore(StudentsMap, studentNum);
